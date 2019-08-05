@@ -2,8 +2,10 @@
 
 lib\RecaptchaBundle\Resources\views\fields.html.twig
 
+```yaml
 	#修改 
 	{% set attr = attr | merge({class:'g-recaptcha' , 'data-sitekey':key , 'data-callback':'' }) %} 
+```
 
 config\packages\recaptcha.yaml
 
