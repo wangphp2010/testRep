@@ -1,19 +1,32 @@
-#### 为样式文件传入参数
-
-lib\RecaptchaBundle\Resources\views\fields.html.twig
-
-```yaml
-	#修改 
-	{% set attr = attr | merge({class:'g-recaptcha' , 'data-sitekey':key , 'data-callback':'' }) %} 
+lib/RecaptchaBundle/RecaptchaBundle.php
+```
+ #增加 
+ public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+        $container->addCompilerPass(new RecaptchaCompilerPass());
+    }
 ```
 
-config\packages\recaptcha.yaml
+lib\RecaptchaBundle\RecaptchaCompilerPass.php
+```php
+namespace MyLib\RecaptchaBundle;
 
-```yaml
-services:
-  recaptcha.type : #定义一个名为 recaptcha.type 的服务
-    class: MyLib\RecaptchaBundle\Type\RecaptchaSubmitType # 定义要载入的class
-    tags: ['form.type']
-    arguments:
-      $key: '6LeIohoUAAAAAOtXJI_WbAwVoPiALQcg3q2JKiKX'
- ```
+use Symfony\Component\DependencyInjection\ContainerBuilder ;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface ;
+
+class RecaptchaCompilerPass implements CompilerPassInterface{
+
+    public function process(ContainerBuilder $container){
+
+        if($container->hasParameter("twig.form.resources"))
+        {
+            $resources = $container->getParameter("twig.form.resources")?: [] ;
+
+            array_unshift($resources , '@Recaptcha/fields.html.twig' ) ;
+            $container->setParameter( "twig.form.resources", $resources ) ;
+        }
+            
+        
+    }
+}
