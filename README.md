@@ -7,7 +7,7 @@ lib\RecaptchaBundle\Resources\views\fields.html.twig
 
 config\packages\recaptcha.yaml
 
-```
+```yaml
 services:
   recaptcha.type : #定义一个名为 recaptcha.type 的服务
     class: MyLib\RecaptchaBundle\Type\RecaptchaSubmitType # 定义要载入的class
