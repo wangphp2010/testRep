@@ -1,32 +1,14 @@
-lib/RecaptchaBundle/RecaptchaBundle.php
+创建文件
+
 ```
- #增加 
- public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
-        $container->addCompilerPass(new RecaptchaCompilerPass());
-    }
-```
-
-lib\RecaptchaBundle\RecaptchaCompilerPass.php
-```php
-namespace MyLib\RecaptchaBundle;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder ;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface ;
-
-class RecaptchaCompilerPass implements CompilerPassInterface{
-
-    public function process(ContainerBuilder $container){
-
-        if($container->hasParameter("twig.form.resources"))
-        {
-            $resources = $container->getParameter("twig.form.resources")?: [] ;
-
-            array_unshift($resources , '@Recaptcha/fields.html.twig' ) ;
-            $container->setParameter( "twig.form.resources", $resources ) ;
-        }
-            
-        
-    }
-}
+templates/
+└─ bundles/
+   └─ TwigBundle/
+      └─ Exception/
+         ├─ error404.html.twig
+         ├─ error403.html.twig
+         ├─ error.html.twig      # All other HTML errors (including 500)
+         ├─ error404.json.twig
+         ├─ error403.json.twig
+         └─ error.json.twig      # All other JSON errors (including 500)
+```	
