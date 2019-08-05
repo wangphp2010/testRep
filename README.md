@@ -1,15 +1,26 @@
-创建文件
-======
+lib\RecaptchaBundle\Type\RecaptchaSubmitType.php
+
+```php
+
+增加 
+/**
+* @var string
+*/
+private $key ;
+
+public function __construct(string $key )
+{
+$this->key = $key ;
+}
+
+
+
+	
+public function buildView(FormView $view, FormInterface $form, array $option    )
+{
+	$view->vars["label"] = false;  # 不显示label 
+增加这一行	$view->vars["key"] =  $this->key ; 
+	$view->vars["button"] = $option['label'] ; 
+}	
 
 ```
-templates/
-└─ bundles/
-   └─ TwigBundle/
-      └─ Exception/
-         ├─ error404.html.twig
-         ├─ error403.html.twig
-         ├─ error.html.twig      # All other HTML errors (including 500)
-         ├─ error404.json.twig
-         ├─ error403.json.twig
-         └─ error.json.twig      # All other JSON errors (including 500)
-```	
